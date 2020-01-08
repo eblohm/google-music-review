@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { fetchMusicData } from "../utils/helpers";
 import UserDataContext from "../contexts/userData";
 
@@ -7,9 +7,14 @@ export default function Form() {
   const min = 2015;
   const max = new Date().getFullYear();
   let years = [];
+  let maxData = [];
 
   for (let i = min; i <= max; i++) {
     years.push(i);
+  }
+
+  for (let j = 10; j <= 50; j++) {
+    maxData.push(j);
   }
 
   return (
@@ -21,7 +26,7 @@ export default function Form() {
           className="gpm-file-uploader"
           onChange={e => {
             fetchMusicData(URL.createObjectURL(e.target.files[0]))
-              .then(data => dispatch({ type: "addFile", data }))
+              .then(file => dispatch({ type: "addFile", file }))
               .catch(({ message }) =>
                 dispatch({ type: "error", error: message })
               );
@@ -42,9 +47,30 @@ export default function Form() {
           </option>
         ))}
       </select>
-      <button type="button" onClick={() => dispatch({ type: "getData" })}>
-        Button
-      </button>
+      <select
+        label="Most Amount"
+        onChange={e => dispatch({ type: "addSlice", slice: e.target.value })}
+        value={state.sliceValue}
+      >
+        {maxData.map(val => (
+          <option key={val} value={val}>
+            {val}
+          </option>
+        ))}
+      </select>
+      {state.year !== "" && state.file !== [] ? (
+        <button type="button" onClick={() => dispatch({ type: "getData" })}>
+          Show me my data!
+        </button>
+      ) : (
+        <button
+          disabled
+          type="button"
+          onClick={() => dispatch({ type: "getData" })}
+        >
+          Show me my data!
+        </button>
+      )}
     </>
   );
 }
