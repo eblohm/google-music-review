@@ -1,17 +1,50 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import { fetchMusicData } from "../utils/helpers";
+import UserDataContext from "../contexts/userData";
 
-const Form = setFile => {
+export default function Form() {
+  const { dispatch, state } = useContext(UserDataContext);
+  const min = 2015;
+  const max = new Date().getFullYear();
+  let years = [];
+
+  for (let i = min; i <= max; i++) {
+    years.push(i);
+  }
+
   return (
-    <form method="post" action="#">
-      <div class="file-upload">
+    <>
+      <div className="file-upload">
         <label>Upload Your Google Play Music Activity File</label>
-        <input type="file" class="gpm-file-uploader" />
+        <input
+          type="file"
+          className="gpm-file-uploader"
+          onChange={e => {
+            fetchMusicData(URL.createObjectURL(e.target.files[0]))
+              .then(data => dispatch({ type: "addFile", data }))
+              .catch(({ message }) =>
+                dispatch({ type: "error", error: message })
+              );
+          }}
+        />
       </div>
-      <button type="button" onClick={setFile}>
-        Upload
+      <select
+        label="Select Year"
+        onChange={e => dispatch({ type: "addYear", year: e.target.value })}
+        value={state.year}
+      >
+        <option disabled={true} value="">
+          Select A Year
+        </option>
+        {years.reverse().map(year => (
+          <option key={year} value={year}>
+            {year}
+          </option>
+        ))}
+      </select>
+      <button type="button" onClick={() => dispatch({ type: "getData" })}>
+        Button
       </button>
-    </form>
+    </>
   );
-};
-
-export default Form;
+}
