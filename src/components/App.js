@@ -1,30 +1,29 @@
-import React from "react";
-import Form from "./Form";
-import Artists from "./Artists";
-import Songs from "./Songs";
-import { UserDataProvider } from "../contexts/userData";
-import { loopMusicData } from "../utils/helpers";
+import React from 'react';
+import Form from './Form';
+import MusicList from './MusicList';
+import { UserDataProvider } from '../contexts/userData';
+import { loopMusicData } from '../utils/helpers';
 
 function musicReducer(state, action) {
-  if (action.type === "addFile") {
+  if (action.type === 'addFile') {
     return {
       ...state,
-      file: action.file
+      file: action.file,
     };
-  } else if (action.type === "addYear") {
+  } else if (action.type === 'addYear') {
     return {
       ...state,
-      year: action.year
+      year: action.year,
     };
-  } else if (action.type === "addSlice") {
+  } else if (action.type === 'addSlice') {
     return {
       ...state,
-      sliceValue: parseInt(action.slice)
+      sliceValue: parseInt(action.slice),
     };
-  } else if (action.type === "getData") {
+  } else if (action.type === 'getData') {
     return {
       ...state,
-      loading: false
+      loading: false,
     };
   }
 }
@@ -33,8 +32,8 @@ function App() {
   const [state, dispatch] = React.useReducer(musicReducer, {
     loading: true,
     file: [],
-    year: "",
-    sliceValue: 10
+    year: '',
+    sliceValue: 10,
   });
 
   const { loading, file, year, sliceValue } = state;
@@ -53,8 +52,8 @@ function App() {
 
   return (
     <UserDataProvider value={{ state, dispatch }}>
-      <Artists artists={artistData} />
-      <Songs songs={songData} />
+      <MusicList musicData={artistData} />
+      <MusicList musicData={songData} />
     </UserDataProvider>
   );
 }

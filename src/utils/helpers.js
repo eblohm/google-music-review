@@ -2,17 +2,12 @@ export function fetchMusicData(file) {
   return fetch(file).then(res => res.json());
 }
 
-const countInfo = (originalArray, dataType) => {
+const countInfo = originalArray => {
   let returnData = [];
 
   // First, create an array with no duplicate info
   let uniqueArray = originalArray.reduce((acc, current) => {
-    let x = "";
-    if (dataType === "artists") {
-      x = acc.find(item => item.artist === current.artist);
-    } else if (dataType === "songs") {
-      x = acc.find(item => item.songTitle === current.songTitle);
-    }
+    const x = acc.find(item => item.name === current.name);
     if (!x) {
       return acc.concat([current]);
     } else {
@@ -25,24 +20,12 @@ const countInfo = (originalArray, dataType) => {
   // non-unique array
   uniqueArray.forEach(item => {
     let itemCount = originalArray.reduce((count, val) => {
-      if (dataType === "artists") {
-        return count + (val.artist === item.artist);
-      } else if (dataType === "songs") {
-        return count + (val.songTitle === item.songTitle);
-      }
-      return count;
+      return count + (val.name === item.name);
     }, 0);
-    if (dataType === "artists") {
-      returnData.push({
-        artist: item.artist,
-        timesListened: itemCount
-      });
-    } else if (dataType === "songs") {
-      returnData.push({
-        songTitle: item.songTitle,
-        timesListened: itemCount
-      });
-    }
+    returnData.push({
+      name: item.name,
+      timesListened: itemCount,
+    });
   });
 
   return returnData;
@@ -72,16 +55,18 @@ export function loopMusicData(file, year, slice) {
       songInfo.time.substring(0, 4) === year
     ) {
       allArtists.push({
-        artist: songInfo.description
+        name: songInfo.description,
       });
       allSongs.push({
-        songTitle: songInfo.title.substring(12)
+        // The first 12 characters from Google are always "Listened to " so
+        // we need to cut it out
+        name: songInfo.title.substring(12),
       });
     }
   });
-  let artistPlayCount = countInfo(allArtists, "artists");
+  let artistPlayCount = countInfo(allArtists);
   artistPlayCount.sort(compareMusic);
-  let songPlayCount = countInfo(allSongs, "songs");
+  let songPlayCount = countInfo(allSongs);
   songPlayCount.sort(compareMusic);
 
   return [artistPlayCount.slice(0, slice), songPlayCount.slice(0, slice)];
