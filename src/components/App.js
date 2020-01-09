@@ -1,6 +1,7 @@
 import React from 'react';
 import Form from './Form';
 import MusicList from './MusicList';
+import { SectionStyles, SectionHeader } from '../styles/styles';
 import { UserDataProvider } from '../contexts/userData';
 import { loopMusicData } from '../utils/helpers';
 
@@ -48,12 +49,16 @@ function App() {
 
   const [artistData, songData] = loopMusicData(file, year, sliceValue);
 
-  console.log(JSON.stringify(artistData));
-
   return (
     <UserDataProvider value={{ state, dispatch }}>
-      <MusicList musicData={artistData} />
-      <MusicList musicData={songData} />
+      <SectionStyles>
+        <SectionHeader>Most Popular Artists</SectionHeader>
+        <MusicList musicData={artistData} />
+      </SectionStyles>
+      <SectionStyles>
+        <SectionHeader>Most Popular Songs</SectionHeader>
+        <MusicList musicData={songData} />
+      </SectionStyles>
     </UserDataProvider>
   );
 }
