@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { FormStyles } from "../styles/styles";
 import { fetchMusicData } from "../utils/helpers";
 import UserDataContext from "../contexts/userData";
 
@@ -13,14 +14,16 @@ export default function Form() {
     years.push(i);
   }
 
+  years.push("All");
+
   for (let j = 10; j <= 50; j++) {
     maxData.push(j);
   }
 
   return (
-    <>
+    <FormStyles>
       <div className="file-upload">
-        <label>Upload Your Google Play Music Activity File</label>
+        <label>Select your Google Play Activity File</label>
         <input
           type="file"
           className="gpm-file-uploader"
@@ -63,14 +66,10 @@ export default function Form() {
           Show me my data!
         </button>
       ) : (
-        <button
-          disabled
-          type="button"
-          onClick={() => dispatch({ type: "getData" })}
-        >
+        <button disabled type="button">
           Show me my data!
         </button>
       )}
-    </>
+    </FormStyles>
   );
 }
