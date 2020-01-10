@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
-import { FormStyles } from "../styles/styles";
-import { fetchMusicData } from "../utils/helpers";
-import UserDataContext from "../contexts/userData";
+import React, { useContext } from 'react';
+import { FormStyles } from '../styles/styles';
+import { fetchMusicData } from '../utils/helpers';
+import UserDataContext from '../contexts/userData';
 
 export default function Form() {
   const { dispatch, state } = useContext(UserDataContext);
@@ -14,7 +14,7 @@ export default function Form() {
     years.push(i);
   }
 
-  years.push("All");
+  years.push('All Time');
 
   for (let j = 10; j <= 50; j++) {
     maxData.push(j);
@@ -29,40 +29,44 @@ export default function Form() {
           className="gpm-file-uploader"
           onChange={e => {
             fetchMusicData(URL.createObjectURL(e.target.files[0]))
-              .then(file => dispatch({ type: "addFile", file }))
+              .then(file => dispatch({ type: 'addFile', file }))
               .catch(({ message }) =>
-                dispatch({ type: "error", error: message })
+                dispatch({ type: 'error', error: message })
               );
           }}
         />
       </div>
-      <select
-        label="Select Year"
-        onChange={e => dispatch({ type: "addYear", year: e.target.value })}
-        value={state.year}
-      >
-        <option disabled={true} value="">
-          Select A Year
-        </option>
-        {years.reverse().map(year => (
-          <option key={year} value={year}>
-            {year}
+      <div className="slice-select">
+        <label>Show My Top </label>
+        <select
+          onChange={e => dispatch({ type: 'addSlice', slice: e.target.value })}
+          value={state.sliceValue}
+        >
+          {maxData.map(val => (
+            <option key={val} value={val}>
+              {val}
+            </option>
+          ))}
+        </select>
+        <p> Artists and Songs from </p>
+      </div>
+      <div className="year-select">
+        <select
+          onChange={e => dispatch({ type: 'addYear', year: e.target.value })}
+          value={state.year}
+        >
+          <option disabled={true} value="">
+            Select A Year
           </option>
-        ))}
-      </select>
-      <select
-        label="Most Amount"
-        onChange={e => dispatch({ type: "addSlice", slice: e.target.value })}
-        value={state.sliceValue}
-      >
-        {maxData.map(val => (
-          <option key={val} value={val}>
-            {val}
-          </option>
-        ))}
-      </select>
-      {state.year !== "" && state.file !== [] ? (
-        <button type="button" onClick={() => dispatch({ type: "getData" })}>
+          {years.reverse().map(year => (
+            <option key={year} value={year}>
+              {year}
+            </option>
+          ))}
+        </select>
+      </div>
+      {state.year !== '' && state.file !== [] ? (
+        <button type="button" onClick={() => dispatch({ type: 'getData' })}>
           Show me my data!
         </button>
       ) : (
