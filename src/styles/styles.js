@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Button from "@material-ui/core/Button";
 
 const theme = {
   white: "hsl(0, 0%, 100%)"
@@ -11,6 +12,14 @@ const AbsoluteCenter = styled.div`
   transform: translate(-50%, -50%);
 `;
 
+const FormButton = styled(Button)`
+  background-color: green;
+
+  span {
+    color: white;
+  }
+`;
+
 const FormStyles = styled(AbsoluteCenter)`
   position: absolute;
   text-align: center;
@@ -20,6 +29,10 @@ const FormStyles = styled(AbsoluteCenter)`
     display: flex;
     flex-direction: column;
     justify-content: center;
+  }
+
+  .data-selector {
+    display: flex;
   }
 `;
 
@@ -73,6 +86,7 @@ const SiteHeader = styled.h1`
 export {
   theme,
   FormStyles,
+  FormButton,
   ModalBackground,
   ModalStyles,
   MusicStyles,
