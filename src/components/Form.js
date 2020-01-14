@@ -1,26 +1,19 @@
 import React, { useContext } from "react";
 import { StylesProvider } from "@material-ui/core/styles";
 import { FormButton, FormStyles } from "../styles/styles";
-import { fetchMusicData } from "../utils/helpers";
+import { fetchMusicData, selectGenerator } from "../utils/helpers";
 import UserDataContext from "../contexts/userData";
 import Select from "./Select";
 
 export default function Form() {
   const { dispatch, state } = useContext(UserDataContext);
-  const min = 2015;
-  const max = new Date().getFullYear();
   let years = [];
   let maxData = [];
 
-  for (let i = min; i <= max; i++) {
-    years.push(i);
-  }
-
+  years = selectGenerator(2015, new Date().getFullYear());
   years.push("All Time");
 
-  for (let j = 10; j <= 50; j++) {
-    maxData.push(j);
-  }
+  maxData = selectGenerator(10, 50);
 
   return (
     <FormStyles>

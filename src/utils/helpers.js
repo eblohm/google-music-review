@@ -24,7 +24,7 @@ const countInfo = originalArray => {
     }, 0);
     returnData.push({
       name: item.name,
-      timesListened: itemCount,
+      timesListened: itemCount
     });
   });
 
@@ -45,6 +45,16 @@ const compareMusic = (a, b) => {
   return comparison * -1;
 };
 
+export function selectGenerator(min, max) {
+  let retData = [];
+
+  for (let i = min; i <= max; i++) {
+    retData.push(i);
+  }
+
+  return retData;
+}
+
 export function loopMusicData(file, year, slice) {
   let allArtists = [];
   let allSongs = [];
@@ -52,15 +62,15 @@ export function loopMusicData(file, year, slice) {
   file.map(songInfo => {
     if (
       songInfo.description !== undefined &&
-      (songInfo.time.substring(0, 4) === year || year === 'All Time')
+      (songInfo.time.substring(0, 4) === year || year === "All Time")
     ) {
       allArtists.push({
-        name: songInfo.description,
+        name: songInfo.description
       });
       allSongs.push({
         // The first 12 characters from Google are always "Listened to " so
         // we need to cut it out
-        name: songInfo.title.substring(12),
+        name: songInfo.title.substring(12)
       });
     }
   });
