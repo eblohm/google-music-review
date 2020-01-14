@@ -5,6 +5,7 @@ import MusicList from "./MusicList";
 import Modal from "./Modal";
 import useModal from "../hooks/useModal";
 import {
+  ModalActivator,
   SectionStyles,
   SectionHeader,
   SiteHeader,
@@ -75,9 +76,9 @@ function App() {
         <GlobalStyle />
         <ThemeProvider theme={theme}>
           <UserDataProvider value={{ state, dispatch }}>
-            <SiteHeader>Google Play Music History In Review</SiteHeader>
+            <SiteHeader>Google Play Music History</SiteHeader>
             <Form />
-            <button onClick={toggle}>How does it work?</button>
+            <ModalActivator onClick={toggle}>How does it work?</ModalActivator>
             <Modal isShowing={isShowing} hide={toggle} />
           </UserDataProvider>
         </ThemeProvider>
@@ -92,7 +93,7 @@ function App() {
       <GlobalStyle />
       <ThemeProvider theme={theme}>
         <UserDataProvider value={{ state, dispatch }}>
-          <SiteHeader>Google Play Music History In Review</SiteHeader>
+          <SiteHeader>Google Play Music History</SiteHeader>
           <SectionStyles>
             <SectionHeader>Most Popular Artists</SectionHeader>
             <MusicList musicData={artistData} />

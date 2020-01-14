@@ -3,6 +3,7 @@ import { StylesProvider } from "@material-ui/core/styles";
 import { FormButton, FormStyles } from "../styles/styles";
 import { fetchMusicData } from "../utils/helpers";
 import UserDataContext from "../contexts/userData";
+import Select from "./Select";
 
 export default function Form() {
   const { dispatch, state } = useContext(UserDataContext);
@@ -40,34 +41,19 @@ export default function Form() {
       <div className="data-selector">
         <div className="slice-select">
           <label>Show My Top </label>
-          <select
-            onChange={e =>
-              dispatch({ type: "addSlice", slice: e.target.value })
-            }
+          <Select
+            change={e => dispatch({ type: "addSlice", slice: e.target.value })}
             value={state.sliceValue}
-          >
-            {maxData.map(val => (
-              <option key={val} value={val}>
-                {val}
-              </option>
-            ))}
-          </select>
+            data={maxData}
+          />
           <p> Artists and Songs from </p>
         </div>
         <div className="year-select">
-          <select
-            onChange={e => dispatch({ type: "addYear", year: e.target.value })}
+          <Select
+            change={e => dispatch({ type: "addYear", year: e.target.value })}
             value={state.year}
-          >
-            <option disabled={true} value="">
-              Select A Year
-            </option>
-            {years.reverse().map(year => (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            ))}
-          </select>
+            data={years.reverse()}
+          />
         </div>
       </div>
       {state.year !== "" && state.file !== [] ? (
@@ -78,7 +64,7 @@ export default function Form() {
         </StylesProvider>
       ) : (
         <StylesProvider injectFirst>
-          <FormButton disabled>Show me my data!</FormButton>
+          <FormButton disabled>Show me my data</FormButton>
         </StylesProvider>
       )}
     </FormStyles>

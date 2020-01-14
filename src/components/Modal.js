@@ -6,7 +6,7 @@ const Modal = ({ isShowing, hide }) =>
   isShowing
     ? ReactDOM.createPortal(
         <>
-          <ModalBackground />
+          <ModalBackground onClick={hide} />
           <ModalStyles aria-modal aria-hidden tabIndex={-1} role="dialog">
             <div className="modal">
               <div className="modal--header">
@@ -60,6 +60,12 @@ const Modal = ({ isShowing, hide }) =>
                   download the JSON file of your listening history to use here!
                 </li>
               </ul>
+              <p>
+                Inspired by{" "}
+                <a href="https://github.com/Lolincolc/gmusic_wrapped">
+                  https://github.com/Lolincolc/gmusic_wrapped
+                </a>
+              </p>
             </div>
           </ModalStyles>
         </>,

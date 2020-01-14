@@ -2,6 +2,8 @@ import styled from "styled-components";
 import Button from "@material-ui/core/Button";
 
 const theme = {
+  black: "hsl(0, 0%, 0%)",
+  orange: "hsl(14, 100%, 57%)",
   white: "hsl(0, 0%, 100%)"
 };
 
@@ -13,10 +15,11 @@ const AbsoluteCenter = styled.div`
 `;
 
 const FormButton = styled(Button)`
-  background-color: green;
+  background-color: ${props => props.theme.orange};
+  text-transform: none;
 
   span {
-    color: white;
+    color: ${props => props.theme.black};
   }
 `;
 
@@ -34,6 +37,13 @@ const FormStyles = styled(AbsoluteCenter)`
   .data-selector {
     display: flex;
   }
+`;
+
+const ModalActivator = styled(Button)`
+  bottom: 5%;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
 `;
 
 const ModalBackground = styled.div`
@@ -87,6 +97,7 @@ export {
   theme,
   FormStyles,
   FormButton,
+  ModalActivator,
   ModalBackground,
   ModalStyles,
   MusicStyles,
