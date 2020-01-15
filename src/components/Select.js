@@ -1,13 +1,14 @@
-import React from "react";
+import React from 'react';
+import { SelectStyles } from '../styles/styles';
 
 const Select = ({ change, value, data }) => (
-  <select onChange={change} value={value}>
+  <SelectStyles onChange={change} value={value}>
     {data.map(val => (
       <option key={val} value={val}>
         {val}
       </option>
     ))}
-  </select>
+  </SelectStyles>
 );
 
 export default Select;

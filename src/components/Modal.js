@@ -1,6 +1,6 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { ModalBackground, ModalStyles } from "../styles/styles";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { ModalBackground, ModalStyles } from '../styles/styles';
 
 const Modal = ({ isShowing, hide }) =>
   isShowing
@@ -28,7 +28,7 @@ const Modal = ({ isShowing, hide }) =>
               </p>
               <ul>
                 <li>
-                  Go to{" "}
+                  Go to{' '}
                   <a href="https://takeout.google.com/">
                     https://takeout.google.com/
                   </a>
@@ -60,8 +60,8 @@ const Modal = ({ isShowing, hide }) =>
                   download the JSON file of your listening history to use here!
                 </li>
               </ul>
-              <p>
-                Inspired by{" "}
+              <p class="inspiration">
+                Inspired by{' '}
                 <a href="https://github.com/Lolincolc/gmusic_wrapped">
                   https://github.com/Lolincolc/gmusic_wrapped
                 </a>

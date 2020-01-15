@@ -1,10 +1,10 @@
-import styled from "styled-components";
-import Button from "@material-ui/core/Button";
+import styled from 'styled-components';
+import { Button, Input, Select } from '@material-ui/core';
 
 const theme = {
-  black: "hsl(0, 0%, 0%)",
-  orange: "hsl(14, 100%, 57%)",
-  white: "hsl(0, 0%, 100%)"
+  black: 'hsl(0, 0%, 0%)',
+  orange: 'hsl(14, 100%, 57%)',
+  white: 'hsl(0, 0%, 100%)',
 };
 
 const AbsoluteCenter = styled.div`
@@ -13,6 +13,8 @@ const AbsoluteCenter = styled.div`
   top: 50%;
   transform: translate(-50%, -50%);
 `;
+
+const FileUpload = styled(Input)``;
 
 const FormButton = styled(Button)`
   background-color: ${props => props.theme.orange};
@@ -30,12 +32,27 @@ const FormStyles = styled(AbsoluteCenter)`
   .file-upload {
     align-items: center;
     display: flex;
-    flex-direction: column;
     justify-content: center;
+
+    label {
+      margin-right: 0.5rem;
+    }
   }
 
   .data-selector {
     display: flex;
+    margin-bottom: 1rem;
+
+    .slice-select,
+    .year-select {
+      label {
+        margin-right: 0.5rem;
+      }
+    }
+
+    .slice-select {
+      margin-right: 0.5rem;
+    }
   }
 `;
 
@@ -71,6 +88,10 @@ const ModalStyles = styled(AbsoluteCenter)`
     }
   }
 
+  .inspiration {
+    text-align: center;
+  }
+
   a {
     color: blue;
   }
@@ -88,6 +109,8 @@ const SectionStyles = styled.section``;
 
 const SectionHeader = styled.h2``;
 
+const SelectStyles = styled(Select)``;
+
 const SiteHeader = styled.h1`
   text-align: center;
   text-transform: uppercase;
@@ -95,6 +118,7 @@ const SiteHeader = styled.h1`
 
 export {
   theme,
+  FileUpload,
   FormStyles,
   FormButton,
   ModalActivator,
@@ -103,5 +127,6 @@ export {
   MusicStyles,
   SectionStyles,
   SectionHeader,
-  SiteHeader
+  SelectStyles,
+  SiteHeader,
 };
