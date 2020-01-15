@@ -2,6 +2,10 @@ import React from "react";
 import { ResultSingle } from "../styles/ResultsStyles";
 
 export default function MusicList({ musicData }) {
+  if (musicData.length === 0) {
+    return <p>No data found for the selected year :(</p>;
+  }
+
   return (
     <ul>
       {musicData.map(musicInfo => (

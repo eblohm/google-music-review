@@ -40,7 +40,8 @@ function musicReducer(state, action) {
   if (action.type === "addFile") {
     return {
       ...state,
-      file: action.file
+      file: action.file,
+      error: null
     };
   } else if (action.type === "addYear") {
     return {
@@ -64,6 +65,11 @@ function musicReducer(state, action) {
       year: "All Time",
       sliceValue: 10
     };
+  } else if (action.type === "error") {
+    return {
+      ...state,
+      error: action.error
+    };
   }
 }
 
@@ -72,7 +78,8 @@ function App() {
     loading: true,
     file: [],
     year: "All Time",
-    sliceValue: 10
+    sliceValue: 10,
+    error: null
   });
   const { isShowing, toggle } = useModal();
 

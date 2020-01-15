@@ -18,15 +18,19 @@ export default function Form() {
   return (
     <FormStyles>
       <div className="file-upload">
+        {state.error ? <p className="form-error">{state.error}</p> : ""}
         <label>Select your Google Play Activity File</label>
         <FormUpload
           type="file"
-          className="gpm-file-uploader"
+          className={`gpm-file-uploader ${state.error ? "file-error" : ""}`}
           onChange={e => {
             fetchMusicData(URL.createObjectURL(e.target.files[0]))
               .then(file => dispatch({ type: "addFile", file }))
-              .catch(({ message }) =>
-                dispatch({ type: "error", error: message })
+              .catch(error =>
+                dispatch({
+                  type: "error",
+                  error: "You must select a JSON file!"
+                })
               );
           }}
         />

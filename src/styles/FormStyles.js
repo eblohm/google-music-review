@@ -29,6 +29,15 @@ const FormStyles = styled(AbsoluteCenter)`
     justify-content: center;
     margin-bottom: 0.5rem;
 
+    .form-error {
+      background-color: #e57373;
+      border: 1px solid #e53935;
+      border-radius: 4px;
+      padding: 8px;
+      position: absolute;
+      top: -60%;
+    }
+
     label {
       margin-right: 0.5rem;
     }
