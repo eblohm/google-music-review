@@ -4,13 +4,13 @@ import Form from "./Form";
 import MusicList from "./MusicList";
 import Modal from "./Modal";
 import useModal from "../hooks/useModal";
-import {
-  ModalActivator,
-  SectionStyles,
-  SectionHeader,
-  SiteHeader,
-  theme
-} from "../styles/styles";
+import { SiteHeader, theme } from "../styles/styles";
+import { FormButton } from "../styles/FormStyles";
+import { ModalActivator } from "../styles/ModalStyles";
+import ResultsStyles, {
+  ResultsHeader,
+  ResultsSection
+} from "../styles/ResultsStyles";
 import { UserDataProvider } from "../contexts/userData";
 import { loopMusicData } from "../utils/helpers";
 
@@ -27,6 +27,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
+    background-color: hsl(120, 2%, 88%);
     font-family: 'Muli', sans-serif;
     font-size: 1rem;
     line-height: 1.5;
@@ -56,6 +57,13 @@ function musicReducer(state, action) {
       ...state,
       loading: false
     };
+  } else if (action.type === "reset") {
+    return {
+      loading: true,
+      file: [],
+      year: "All Time",
+      sliceValue: 10
+    };
   }
 }
 
@@ -63,7 +71,7 @@ function App() {
   const [state, dispatch] = React.useReducer(musicReducer, {
     loading: true,
     file: [],
-    year: "",
+    year: "All Time",
     sliceValue: 10
   });
   const { isShowing, toggle } = useModal();
@@ -94,14 +102,22 @@ function App() {
       <ThemeProvider theme={theme}>
         <UserDataProvider value={{ state, dispatch }}>
           <SiteHeader>Google Play Music History</SiteHeader>
-          <SectionStyles>
-            <SectionHeader>Most Popular Artists</SectionHeader>
-            <MusicList musicData={artistData} />
-          </SectionStyles>
-          <SectionStyles>
-            <SectionHeader>Most Popular Songs</SectionHeader>
-            <MusicList musicData={songData} />
-          </SectionStyles>
+          <ResultsStyles>
+            <ResultsSection>
+              <ResultsHeader>Most Popular Artists</ResultsHeader>
+              <MusicList musicData={artistData} />
+            </ResultsSection>
+            <ResultsSection>
+              <ResultsHeader>Most Popular Songs</ResultsHeader>
+              <MusicList musicData={songData} />
+            </ResultsSection>
+          </ResultsStyles>
+          <FormButton
+            className="reset-button"
+            onClick={() => dispatch({ type: "reset" })}
+          >
+            Reset
+          </FormButton>
         </UserDataProvider>
       </ThemeProvider>
     </>

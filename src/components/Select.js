@@ -1,14 +1,14 @@
-import React from 'react';
-import { SelectStyles } from '../styles/styles';
+import React from "react";
+import { FormItem, FormSelect } from "../styles/FormStyles";
 
 const Select = ({ change, value, data }) => (
-  <SelectStyles onChange={change} value={value}>
+  <FormSelect onChange={change} value={value}>
     {data.map(val => (
-      <option key={val} value={val}>
+      <FormItem key={val} value={val}>
         {val}
-      </option>
+      </FormItem>
     ))}
-  </SelectStyles>
+  </FormSelect>
 );
 
 export default Select;

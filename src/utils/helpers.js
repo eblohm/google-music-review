@@ -62,7 +62,7 @@ export function loopMusicData(file, year, slice) {
   file.map(songInfo => {
     if (
       songInfo.description !== undefined &&
-      (songInfo.time.substring(0, 4) === year || year === "All Time")
+      (parseInt(songInfo.time.substring(0, 4)) === year || year === "All Time")
     ) {
       allArtists.push({
         name: songInfo.description

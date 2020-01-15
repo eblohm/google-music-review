@@ -1,17 +1,17 @@
-import React, { useContext } from 'react';
-import { StylesProvider } from '@material-ui/core/styles';
-import { FileUpload, FormButton, FormStyles } from '../styles/styles';
-import { fetchMusicData, selectGenerator } from '../utils/helpers';
-import UserDataContext from '../contexts/userData';
-import Select from './Select';
+import React, { useContext } from "react";
+import { StylesProvider } from "@material-ui/core/styles";
+import FormStyles, { FormUpload, FormButton } from "../styles/FormStyles";
+import { fetchMusicData, selectGenerator } from "../utils/helpers";
+import UserDataContext from "../contexts/userData";
+import Select from "./Select";
 
 export default function Form() {
   const { dispatch, state } = useContext(UserDataContext);
   let years = [];
   let maxData = [];
 
-  years = selectGenerator(2015, new Date().getFullYear());
-  years.push('All Time');
+  years = selectGenerator(2013, new Date().getFullYear());
+  years.push("All Time");
 
   maxData = selectGenerator(10, 50);
 
@@ -19,14 +19,14 @@ export default function Form() {
     <FormStyles>
       <div className="file-upload">
         <label>Select your Google Play Activity File</label>
-        <FileUpload
+        <FormUpload
           type="file"
           className="gpm-file-uploader"
           onChange={e => {
             fetchMusicData(URL.createObjectURL(e.target.files[0]))
-              .then(file => dispatch({ type: 'addFile', file }))
+              .then(file => dispatch({ type: "addFile", file }))
               .catch(({ message }) =>
-                dispatch({ type: 'error', error: message })
+                dispatch({ type: "error", error: message })
               );
           }}
         />
@@ -35,7 +35,7 @@ export default function Form() {
         <div className="slice-select">
           <label>Show My Top</label>
           <Select
-            change={e => dispatch({ type: 'addSlice', slice: e.target.value })}
+            change={e => dispatch({ type: "addSlice", slice: e.target.value })}
             value={state.sliceValue}
             data={maxData}
           />
@@ -43,15 +43,15 @@ export default function Form() {
         <div className="year-select">
           <label>Artists and Songs from</label>
           <Select
-            change={e => dispatch({ type: 'addYear', year: e.target.value })}
+            change={e => dispatch({ type: "addYear", year: e.target.value })}
             value={state.year}
             data={years.reverse()}
           />
         </div>
       </div>
-      {state.year !== '' && state.file !== [] ? (
+      {state.file.length !== 0 ? (
         <StylesProvider injectFirst>
-          <FormButton onClick={() => dispatch({ type: 'getData' })}>
+          <FormButton onClick={() => dispatch({ type: "getData" })}>
             Show me my data!
           </FormButton>
         </StylesProvider>

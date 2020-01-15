@@ -1,6 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { ModalBackground, ModalStyles } from '../styles/styles';
+import React from "react";
+import ReactDOM from "react-dom";
+import ModalStyles, { ModalBackground } from "../styles/ModalStyles";
 
 const Modal = ({ isShowing, hide }) =>
   isShowing
@@ -28,7 +28,7 @@ const Modal = ({ isShowing, hide }) =>
               </p>
               <ul>
                 <li>
-                  Go to{' '}
+                  Go to{" "}
                   <a href="https://takeout.google.com/">
                     https://takeout.google.com/
                   </a>
@@ -61,7 +61,7 @@ const Modal = ({ isShowing, hide }) =>
                 </li>
               </ul>
               <p class="inspiration">
-                Inspired by{' '}
+                Inspired by{" "}
                 <a href="https://github.com/Lolincolc/gmusic_wrapped">
                   https://github.com/Lolincolc/gmusic_wrapped
                 </a>
