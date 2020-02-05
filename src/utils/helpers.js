@@ -6,24 +6,20 @@ const countInfo = originalArray => {
   let returnData = [];
 
   // First, create an array with no duplicate info
-  let uniqueArray = originalArray.reduce((acc, current) => {
-    const x = acc.find(item => item.name === current.name);
-    if (!x) {
-      return acc.concat([current]);
-    } else {
-      return acc;
-    }
-  }, []);
+  let uniqueArray = originalArray.filter((item, index) => {
+    return originalArray.indexOf(item) === index;
+  });
+  console.log(`This is the unique array: ${uniqueArray.length}`);
 
   // Then, loop over that array using the data inside each object
   // to reduce the amount of times that info appears in the
   // non-unique array
   uniqueArray.forEach(item => {
     let itemCount = originalArray.reduce((count, val) => {
-      return count + (val.name === item.name);
+      return count + (val === item);
     }, 0);
     returnData.push({
-      name: item.name,
+      name: item,
       timesListened: itemCount
     });
   });
@@ -34,15 +30,7 @@ const countInfo = originalArray => {
 const compareMusic = (a, b) => {
   const itemA = a.timesListened;
   const itemB = b.timesListened;
-
-  let comparison = 0;
-  if (itemA > itemB) {
-    comparison = 1;
-  } else if (itemA < itemB) {
-    comparison = -1;
-  }
-
-  return comparison * -1;
+  return itemA > itemB ? -1 : 1;
 };
 
 export function selectGenerator(min, max) {
@@ -64,14 +52,8 @@ export function loopMusicData(file, year, slice) {
       songInfo.description !== undefined &&
       (parseInt(songInfo.time.substring(0, 4)) === year || year === "All Time")
     ) {
-      allArtists.push({
-        name: songInfo.description
-      });
-      allSongs.push({
-        // The first 12 characters from Google are always "Listened to " so
-        // we need to cut it out
-        name: songInfo.title.substring(12)
-      });
+      allArtists.push(songInfo.description);
+      allSongs.push(songInfo.title.substring(12));
     }
   });
   let artistPlayCount = countInfo(allArtists);
